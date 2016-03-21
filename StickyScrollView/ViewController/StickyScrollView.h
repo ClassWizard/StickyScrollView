@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  StickyScrollView.h
 //  StickyScrollView
 //
 //  Created by ClassWizard on 16/3/21.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface StickyScrollView : UIViewController
 
 @end
-
