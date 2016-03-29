@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8356B5661CA0F3A3003AB5D5 /* MapStickyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B5651CA0F3A3003AB5D5 /* MapStickyScrollView.m */; };
+		8356B5681CA0F4B4003AB5D5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8356B5671CA0F4B4003AB5D5 /* MapKit.framework */; };
+		8356B56B1CA0F63B003AB5D5 /* PassThroughScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B56A1CA0F63B003AB5D5 /* PassThroughScrollView.m */; };
+		8356B56E1CA147A6003AB5D5 /* StationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B56D1CA147A6003AB5D5 /* StationInfoView.m */; };
+		8356B5701CA147C2003AB5D5 /* StationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8356B56F1CA147C2003AB5D5 /* StationInfoView.xib */; };
 		83AB740A1C9FC22000FB1391 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AB74091C9FC22000FB1391 /* main.m */; };
 		83AB740D1C9FC22000FB1391 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AB740C1C9FC22000FB1391 /* AppDelegate.m */; };
 		83AB74131C9FC22000FB1391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AB74111C9FC22000FB1391 /* Main.storyboard */; };
@@ -36,6 +41,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8356B5641CA0F3A3003AB5D5 /* MapStickyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapStickyScrollView.h; sourceTree = "<group>"; };
+		8356B5651CA0F3A3003AB5D5 /* MapStickyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapStickyScrollView.m; sourceTree = "<group>"; };
+		8356B5671CA0F4B4003AB5D5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8356B5691CA0F63B003AB5D5 /* PassThroughScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThroughScrollView.h; sourceTree = "<group>"; };
+		8356B56A1CA0F63B003AB5D5 /* PassThroughScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThroughScrollView.m; sourceTree = "<group>"; };
+		8356B56C1CA147A6003AB5D5 /* StationInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationInfoView.h; sourceTree = "<group>"; };
+		8356B56D1CA147A6003AB5D5 /* StationInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationInfoView.m; sourceTree = "<group>"; };
+		8356B56F1CA147C2003AB5D5 /* StationInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StationInfoView.xib; sourceTree = "<group>"; };
 		83AB74051C9FC22000FB1391 /* StickyScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AB74091C9FC22000FB1391 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83AB740B1C9FC22000FB1391 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8356B5681CA0F4B4003AB5D5 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +135,7 @@
 		83AB74081C9FC22000FB1391 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8356B5671CA0F4B4003AB5D5 /* MapKit.framework */,
 				83AB74091C9FC22000FB1391 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -156,6 +171,11 @@
 		83AB743C1C9FC41F00FB1391 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8356B5691CA0F63B003AB5D5 /* PassThroughScrollView.h */,
+				8356B56A1CA0F63B003AB5D5 /* PassThroughScrollView.m */,
+				8356B56C1CA147A6003AB5D5 /* StationInfoView.h */,
+				8356B56D1CA147A6003AB5D5 /* StationInfoView.m */,
+				8356B56F1CA147C2003AB5D5 /* StationInfoView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -165,6 +185,8 @@
 			children = (
 				83AB74441C9FC9B500FB1391 /* StickyScrollView.h */,
 				83AB74451C9FC9B500FB1391 /* StickyScrollView.m */,
+				8356B5641CA0F3A3003AB5D5 /* MapStickyScrollView.h */,
+				8356B5651CA0F3A3003AB5D5 /* MapStickyScrollView.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -274,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83AB74181C9FC22000FB1391 /* LaunchScreen.storyboard in Resources */,
+				8356B5701CA147C2003AB5D5 /* StationInfoView.xib in Resources */,
 				83AB74151C9FC22000FB1391 /* Assets.xcassets in Resources */,
 				83AB74131C9FC22000FB1391 /* Main.storyboard in Resources */,
 			);
@@ -300,10 +323,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8356B56B1CA0F63B003AB5D5 /* PassThroughScrollView.m in Sources */,
 				83AB74431C9FC5DC00FB1391 /* DemoModel.m in Sources */,
+				8356B56E1CA147A6003AB5D5 /* StationInfoView.m in Sources */,
 				83AB74461C9FC9B500FB1391 /* StickyScrollView.m in Sources */,
 				83AB740D1C9FC22000FB1391 /* AppDelegate.m in Sources */,
 				83AB740A1C9FC22000FB1391 /* main.m in Sources */,
+				8356B5661CA0F3A3003AB5D5 /* MapStickyScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
