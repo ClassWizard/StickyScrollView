@@ -1,30 +1,29 @@
 //
-//  HomeMapViewController.m
+//  HomeMapDelegateViewController.m
 //  StickyScrollView
 //
 //  Created by ClassWizard on 16/3/31.
 //  Copyright © 2016年 ClassWizard. All rights reserved.
 //
 
-#import "HomeMapViewController.h"
+#import "HomeMapDelegateViewController.h"
 #import "EVPassThroughScrollView.h"
+#import "EVElectricPileTableView.h"
 #import <MapKit/MapKit.h>
 
-@interface HomeMapViewController () <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
+static CGFloat cellHeight = 88;
+
+@interface HomeMapDelegateViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) MKMapView *myMapView;
 @property (nonatomic, strong) EVPassThroughScrollView *scrollView;
-@property (nonatomic, strong) UITableView *electricPileTableView;
+@property (nonatomic, strong) EVElectricPileTableView *electricPileTableView;
 
 @property (nonatomic, strong) NSMutableArray<UIView *> *stickyViewArr;
 
-@property (nonatomic, assign) CGPoint lastScrollViewOffset;
-@property (nonatomic, assign) CGPoint lastElectricPileTableViewOffset;
-
-
 @end
 
-@implementation HomeMapViewController
+@implementation HomeMapDelegateViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,39 +32,32 @@
     [self setupScrollView];
 }
 
-- (void)dealloc {
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     [self.scrollView removeFromSuperview];
 }
-
 #pragma mark - UI
 - (void)setupMap {
     self.myMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, SCREEN_HEIGHT - 64 - 49)];
-    self.myMapView.delegate = self;
     [self.view addSubview: self.myMapView];
     [self.view sendSubviewToBack:self.myMapView];
-//    MKCoordinateRegion region;
-//    region.span = MKCoordinateSpanMake(0.1, 0.1);
-//    region.center = [[DMLocationManager shareInstance] getLastLocation];
-//    if (region.center.latitude > 0 && region.center.longitude > 0) {
-//        [self.myMapView setRegion:region animated:YES];
-//    }
-//    self.myMapView.showsUserLocation = YES;
-//    self.myMapView.userTrackingMode = MKUserTrackingModeNone;
-//    self.myMapView.userInteractionEnabled = YES;
-//    self.myMapView.rotateEnabled = NO;
-    
-    
+//        MKCoordinateRegion region;
+//        region.span = MKCoordinateSpanMake(0.1, 0.1);
+//        region.center = [[DMLocationManager shareInstance] getLastLocation];
+//        if (region.center.latitude > 0 && region.center.longitude > 0) {
+//            [self.myMapView setRegion:region animated:YES];
+//        }
+//        self.myMapView.showsUserLocation = YES;
+//        self.myMapView.userTrackingMode = MKUserTrackingModeNone;
+//        self.myMapView.userInteractionEnabled = YES;
+        self.myMapView.rotateEnabled = NO;
 }
 
 - (void)setupScrollView {
-    
-    UIPanGestureRecognizer *scrollPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScrollViewPanGesture:)];
-    
     // 1.外部滚动视图
     self.scrollView = [[EVPassThroughScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
     self.scrollView.delegate = self;
-    self.scrollView.scrollEnabled = NO;
-    [self.scrollView addGestureRecognizer:scrollPanGesture];
     //由于要遮罩标签栏,所以放在keyWindow上
     NSArray *windows = [UIApplication sharedApplication].windows;
     [windows.firstObject addSubview:self.scrollView];
@@ -110,16 +102,24 @@
     }];
     
     // 2.2.1桩位
-    self.electricPileTableView = [UITableView new];
+    self.electricPileTableView = [EVElectricPileTableView new];
     self.electricPileTableView.delegate = self;
     self.electricPileTableView.dataSource = self;
-    self.electricPileTableView.scrollEnabled = NO;
+//    self.electricPileTableView.scrollEnabled = NO;
     [pageScrollContainer addSubview:self.electricPileTableView];
     [self.electricPileTableView makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(pageScrollView);
         make.top.left.bottom.offset(0);
     }];
-    
+    NSLog(@"-------------------------table---------------------");
+    for (UIGestureRecognizer *gesture in self.electricPileTableView.gestureRecognizers) {
+        if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+            gesture.delegate = self.electricPileTableView;
+            NSLog(@"PanGesture:%@",gesture);
+        }
+    }
+    NSLog(@"-------------------------table---------------------");
+
     // 2.2.2信息
     UIView *infoView = [UIView new];
     infoView.backgroundColor = [UIColor yellowColor];
@@ -146,6 +146,12 @@
     [self.stickyViewArr addObject:segmentStickyView];
 }
 
+#pragma mark - Actions
+- (IBAction)show:(UIButton *)sender {
+    [self.scrollView showBriefInfo];
+}
+
+
 #pragma mark - UITableView DataSource And Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 100;
@@ -160,40 +166,25 @@
     return cell;
 }
 
-#pragma mark - Actions
-- (void)handleScrollViewPanGesture:(UIPanGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        self.lastScrollViewOffset = self.scrollView.contentOffset;
-        self.lastElectricPileTableViewOffset = self.electricPileTableView.contentOffset;
-    }
-    CGPoint gestureOffset = [sender translationInView:sender.view];
-    CGFloat expectY = self.lastScrollViewOffset.y - gestureOffset.y;//上次外层scrollview的位置
-//    NSLog(@">>>>>>orign:%@",NSStringFromCGPoint(self.lastScrollViewOffset));
-//    NSLog(@">>>>>>pan:%@",NSStringFromCGPoint(gestureOffset));
-//    NSLog(@"<<<<<<expect:%f",expectY);//向上移动时,外层scrollView应该滑动的距离
-    CGFloat topOffset = SCREEN_HEIGHT - 64 + CGRectGetMinY(self.stickyViewArr[0].frame);
-    if (gestureOffset.y < 0) {//向上
-        if (expectY < topOffset) {
-            [self.scrollView setContentOffset:CGPointMake(0, expectY)];
-        }
-        else {
-            [self.scrollView setContentOffset:CGPointMake(0, topOffset)];
-            [self.electricPileTableView setContentOffset:CGPointMake(0, self.lastElectricPileTableViewOffset.y + expectY - topOffset)];
+#pragma mark - UIScrollView Delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"-----------------------begin drag-------------------");
+    for (UIGestureRecognizer *gesture in scrollView.gestureRecognizers) {
+        if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+//            NSLog(@"PanGesture:%@",gesture);
         }
     }
-    else {//向下
-        if (self.lastElectricPileTableViewOffset.y > topOffset - expectY) {//滑动table
-            [self.electricPileTableView setContentOffset:CGPointMake(0, self.lastElectricPileTableViewOffset.y + expectY - topOffset)];
-        }
-        else {//固定table,滑动外层scrollView
-            [self.electricPileTableView setContentOffset:CGPointMake(0, 0)];
-            [self.scrollView setContentOffset:CGPointMake(0, self.lastScrollViewOffset.y - gestureOffset.y + self.lastElectricPileTableViewOffset.y)];
+    NSLog(@"----------------------------------------------------");
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    for (UIGestureRecognizer *gesture in scrollView.gestureRecognizers) {
+        if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+//            NSLog(@"PanGesture:%@",gesture);
         }
     }
 }
 
-- (IBAction)show:(UIButton *)sender {
-    [self.scrollView showBriefInfo];
-}
 
 @end
