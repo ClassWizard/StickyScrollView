@@ -223,6 +223,46 @@ sadfjals</string>
             </objects>
             <point key="canvasLocation" x="1096.5" y="455.5"/>
         </scene>
+        <!--Home Map View Controller-->
+        <scene sceneID="WPv-Vo-gmC">
+            <objects>
+                <viewController id="ncU-GK-4rs" customClass="HomeMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g8R-HF-GsI"/>
+                        <viewControllerLayoutGuide type="bottom" id="UGb-c6-ajp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BGG-JW-iQ7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfz-32-Q6W">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="cEb-JF-xeg"/>
+                                    <tabBarItem systemItem="more" id="jiP-pc-fl9"/>
+                                </items>
+                            </tabBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhk-2A-rLw">
+                                <rect key="frame" x="20" y="98" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="show:" destination="ncU-GK-4rs" eventType="touchUpInside" id="b3n-sx-99h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Sfz-32-Q6W" firstAttribute="leading" secondItem="BGG-JW-iQ7" secondAttribute="leading" id="XHH-vD-GRC"/>
+                            <constraint firstItem="UGb-c6-ajp" firstAttribute="top" secondItem="Sfz-32-Q6W" secondAttribute="bottom" id="cpL-5c-a9A"/>
+                            <constraint firstAttribute="trailing" secondItem="Sfz-32-Q6W" secondAttribute="trailing" id="eOg-d1-dkn"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jVS-KT-n4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="558.5" y="485.5"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="eIH-SY-z6z">
             <objects>
@@ -291,6 +331,26 @@ sadfjals</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="1P7-wo-hf9" kind="show" id="5S7-FJ-vhU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="B9z-RN-60M" style="IBUITableViewCellStyleDefault" id="WOw-9r-3lZ">
+                                        <rect key="frame" x="0.0" y="152" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WOw-9r-3lZ" id="hml-ap-0VX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Map1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B9z-RN-60M">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ncU-GK-4rs" kind="show" id="oN9-rl-lPO"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
